@@ -11,9 +11,10 @@
  */
 
 // ── Canonical host (guardrail #2) ────────────────────────────────────────────
-// www vs apex decided in the Build Plan Decision Ledger. Canonical, OG, sitemap,
-// robots and every schema url/@id derive from this one constant.
-export const siteUrl = "https://www.rmsanitation.com" as const
+// www vs apex decided in the Build Plan Decision Ledger (www). The purchased domain is
+// randmsanitation.com (plan assumed rmsanitation.com — BUILD-DECISIONS.md). Canonical,
+// OG, sitemap, robots and every schema url/@id derive from this one constant.
+export const siteUrl = "https://www.randmsanitation.com" as const
 
 export function absoluteUrl(path = "/") {
   return path === "/" ? siteUrl : `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`

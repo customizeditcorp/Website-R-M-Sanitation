@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   },
   partialPrefetching: true,
   // Staging guard (Step 9): any *.vercel.app host is noindex, nofollow. The canonical
-  // host (www.rmsanitation.com) never matches, so the guard switches off by itself once
+  // host (www.randmsanitation.com) never matches, so the guard switches off by itself once
   // the domain is connected — nobody has to remember to remove it.
   async headers() {
     return [
