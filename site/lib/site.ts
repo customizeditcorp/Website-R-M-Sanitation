@@ -222,6 +222,8 @@ export const services: Service[] = [
 // ── Cities (data-gated — guardrail #3, anti-doorway) ────────────────────────
 // `published: false` → no route, no sitemap entry, no internal link. Flip only when
 // the city has a real local photo + real local context (Build Plan §1).
+// Publishing a city = set `published: true`, add its intro to lib/content.ts
+// (cityContent) and add app/areas/<slug>/page.tsx rendering <CityPage slug="…" />.
 export type City = {
   slug: string
   href: string
@@ -247,6 +249,7 @@ export const cities: City[] = [
     slug: "santa-maria",
     href: "/areas/santa-maria",
     name: "Santa Maria",
+    // Published on hyperlocal context without a local photo (approved by Luis 2026-10-14)
     published: true,
     h1: "Portable Sanitation and Septic in Santa Maria.",
     metaTitle: "Portable Sanitation + Septic in Santa Maria | R&M",

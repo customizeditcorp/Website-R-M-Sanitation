@@ -213,6 +213,24 @@ export const septic = {
   finalCta: "Call Francisco for a same-day or next-day appointment.",
 }
 
+// ── /areas/[city] ───────────────────────────────────────────────────────────
+// Only published cities render (lib/site.ts). Intros are hyperlocal and unique per
+// city — never a template with the name swapped (guardrail #3, anti-doorway).
+export const cityContent: Record<string, { intro: string }> = {
+  lompoc: {
+    // EDIT: "1625 Laurel Avenue" → Brief v1.1 canonical "1625 Laurel Ave" (NAP decision);
+    // dropped "within the hour" — 1-hour quote turnaround is [TO CONFIRM].
+    intro:
+      "Lompoc is R&M's home base. Our shop sits at 1625 Laurel Ave, Suite B, and our three trucks run routes across the Santa Ynez Valley, Guadalupe, and the Lompoc flower fields daily. For agricultural crews during peak season, outdoor events on rural properties, and residential septic across Lompoc — one phone call to Francisco gets you a written quote.",
+  },
+  "santa-maria": {
+    // Written by Claude from plan §5 note + Value Offer Component 7; approved by Luis
+    // 2026-10-14. Published without a local photo (BUILD-DECISIONS.md).
+    intro:
+      "Santa Maria sits in the Central Coast's strawberry and broccoli corridor, where a missed service in peak season lands on the crew and on the grower's file. From our Lompoc base, R&M serves Santa Maria Valley ranches with OSHA-compliant restrooms and hand-wash stations on a written weekly schedule, with service logs on request for a Cal/OSHA inspection. For strawberry season, book four to eight weeks out — late February to March for the April–July peak. Farm weddings, outdoor events, and residential septic across Santa Maria work the same way: one call to Francisco, one written quote.",
+  },
+}
+
 // ── /contact ────────────────────────────────────────────────────────────────
 export const contact = {
   h1: "The fastest way to reach us is by phone.",
