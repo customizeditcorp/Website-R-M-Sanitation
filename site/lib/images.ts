@@ -67,3 +67,21 @@ export const photos = {
     "Interior of a standard portable restroom with urinal and toilet",
   ),
 } as const
+
+// ── /gallery (data-gated container) ─────────────────────────────────────────
+// Plan §1: the gallery page publishes when ≥20 real photos exist. Add photos here;
+// the page switches from placeholder to grid (and becomes indexable) on its own.
+export const GALLERY_MIN_PHOTOS = 20
+
+export const galleryPhotos: Photo[] = [
+  photos.agTrailerUnit,
+  photos.agTrailerHandWash,
+  photos.agTrailerSinks,
+  photos.standardUnit,
+  photos.interiorToilet,
+  photos.interiorUrinal,
+  photos.septicLids,
+  photos.truckRanch,
+]
+
+export const galleryIsLive = galleryPhotos.length >= GALLERY_MIN_PHOTOS

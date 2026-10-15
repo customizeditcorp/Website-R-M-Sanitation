@@ -12,7 +12,7 @@ import {
   TrustBar,
 } from "@/components/sections"
 import { home } from "@/lib/content"
-import { photos, type Photo } from "@/lib/images"
+import { galleryIsLive, photos, type Photo } from "@/lib/images"
 import { business, cities, homeSeo, services } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -138,13 +138,16 @@ export default function HomePage() {
       <Section labelledBy="gallery">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading id="gallery" eyebrow="05" title={home.gallery.title} />
-          <Link
-            href="/gallery"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-accent-highlight hover:underline"
-          >
-            {home.gallery.link}
-            <ArrowRight aria-hidden="true" className="size-4" />
-          </Link>
+          {/* Linked only once the gallery page has real content (plan §1, ≥20 photos) */}
+          {galleryIsLive && (
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-accent-highlight hover:underline"
+            >
+              {home.gallery.link}
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </Link>
+          )}
         </div>
         <ul className="mt-12 grid grid-cols-2 gap-2 md:grid-cols-4">
           {galleryStrip.map((p) => (

@@ -231,6 +231,48 @@ export const cityContent: Record<string, { intro: string }> = {
   },
 }
 
+// ── /about ──────────────────────────────────────────────────────────────────
+// Plan §5 copy, verbatim. No "The Francisco Way" label: the method label is
+// [TO CONFIRM] (Value Offer Component 2, plan §11) — story only, no named method.
+export const about = {
+  h1: "20+ years in sanitation on the Central Coast.",
+  story:
+    "Francisco Ramirez has been in sanitation on the Central Coast for over twenty years. He runs R&M Sanitation personally — he answers the phone, he walks the ranch before season, he dispatches the trucks, and he picks up the crisis call during harvest peak. No menu. No dispatcher. No voicemail.",
+  entity:
+    "R&M Sanitation operates under R & M Quality Truck Body LLC — the operating entity that carries the active USDOT 451529 registration, the commercial insurance, and the surety bond. R & M Sanitation LLC is in formation and will become the operating entity once the transition closes.",
+  trucks:
+    "Three modern service trucks of different capacities run from our Lompoc base across SLO and Santa Barbara counties. The trucks are sized intentionally — big enough to handle commercial septic and ag season volume, small enough to reach the back blocks of rural ranches.",
+  closing: "That's it. Francisco, the trucks, the number. On time, every cycle.",
+  seo: {
+    title: "About R&M Sanitation | Francisco Ramirez, Owner",
+    description:
+      "20+ years in sanitation on the Central Coast. Owner-run. Three modern trucks. Operating under R & M Quality Truck Body LLC.",
+  },
+}
+
+// ── /gallery + /reviews containers ──────────────────────────────────────────
+export const galleryPage = {
+  h1: "Field work on the Central Coast",
+  // Placeholder written by Claude, modeled on the plan's approved reviews placeholder
+  placeholder:
+    "Photos from R&M jobs across the Central Coast are posted here as the season's work is documented. Meanwhile, call Francisco directly:",
+  seo: {
+    title: "Gallery | R&M Sanitation",
+    description:
+      "Field photos of R&M Sanitation units, trailers and trucks across the Central Coast.",
+  },
+}
+
+export const reviewsPage = {
+  h1: "Reviews",
+  // Plan §4 reviews placeholder, verbatim (phone rendered as a tap-to-call link)
+  placeholder: "Reviews coming as the first season closes. Meanwhile, call Francisco directly:",
+  seo: {
+    title: "Reviews | R&M Sanitation",
+    description: "Customer reviews of R&M Sanitation, owner-run portable sanitation and septic on the Central Coast.",
+  },
+}
+
 // ── /contact ────────────────────────────────────────────────────────────────
 export const contact = {
   h1: "The fastest way to reach us is by phone.",
