@@ -1,0 +1,259 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * R&M Sanitation — design tokens
+ *
+ * Layer 1 (--rm-*): raw brand values, copied from Brandboard v1.0 Block 8.
+ *   These are the ONLY place a hex value lives.
+ * Layer 2 (shadcn vocabulary): semantic tokens that only point at Layer 1 via var().
+ *
+ * Dark-first frame (#0a0a0a) per Website Build Plan v1.0 §2 — intentional divergence
+ * from the brandboard's white default, authorized by the Refero research (Andercore).
+ * Light data-heavy sections opt in with `.surface-light` (cream #f8f8f8).
+ *
+ * Radius per plan §2 + project CLAUDE.md: 4px buttons, 0–8px content cards.
+ */
+
+:root {
+  /* ============ BRAND COLORS (Brandboard Block 8) ============ */
+  --rm-red: #be1622;
+  --rm-red-dark: #9a1119;
+  --rm-red-light: #e85462;
+  --rm-white: #ffffff;
+  --rm-cream: #f8f8f8;
+  --rm-ink: #0a0a0a;
+  --rm-ink-soft: #1f1f1f;
+  --rm-slate: #64748b;
+  --rm-slate-light: #cbd5e1;
+  --rm-dark: #0a0a0a;
+
+  /* ============ SEMANTIC (dark-first frame) ============ */
+  --background: var(--rm-dark);
+  --foreground: var(--rm-white);
+  --card: var(--rm-ink-soft);
+  --card-foreground: var(--rm-white);
+  --popover: var(--rm-ink-soft);
+  --popover-foreground: var(--rm-white);
+  --primary: var(--rm-red);
+  --primary-foreground: var(--rm-white);
+  --primary-hover: var(--rm-red-dark);
+  --secondary: var(--rm-ink-soft);
+  --secondary-foreground: var(--rm-white);
+  --muted: var(--rm-ink-soft);
+  /* slate #64748b is under 4.5:1 on #0a0a0a — slate-light carries secondary text on dark */
+  --muted-foreground: var(--rm-slate-light);
+  --accent: var(--rm-red);
+  --accent-foreground: var(--rm-white);
+  --accent-highlight: var(--rm-red-light);
+  --destructive: var(--rm-red-light);
+  --border: color-mix(in srgb, var(--rm-slate) 35%, transparent);
+  --input: color-mix(in srgb, var(--rm-slate) 50%, transparent);
+  --ring: var(--rm-red-light);
+  --surface-shade: var(--rm-ink-soft);
+
+  /* ============ SHAPE ============ */
+  --radius: 0.25rem; /* 4px — buttons */
+  --radius-card: 0px; /* hard-edge content cards (plan allows 0–8px) */
+}
+
+/* Light surface for data-heavy sections (areas, reviews) — re-scopes the same vocabulary */
+.surface-light {
+  --background: var(--rm-cream);
+  --foreground: var(--rm-ink);
+  --card: var(--rm-white);
+  --card-foreground: var(--rm-ink);
+  --popover: var(--rm-white);
+  --popover-foreground: var(--rm-ink);
+  --secondary: var(--rm-white);
+  --secondary-foreground: var(--rm-ink);
+  --muted: var(--rm-white);
+  /* slate #64748b on cream #f8f8f8 is 4.48:1 (fails AA). Shift slate 15% toward ink
+     to clear 4.5:1 while staying in the brand family. */
+  --muted-foreground: color-mix(in srgb, var(--rm-slate) 85%, var(--rm-ink));
+  --destructive: var(--rm-red);
+  --border: color-mix(in srgb, var(--rm-slate) 20%, transparent);
+  --input: color-mix(in srgb, var(--rm-slate) 40%, transparent);
+  --ring: var(--rm-red);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Dark-shade band (#1f1f1f) for section rhythm on the dark frame */
+.surface-shade {
+  --background: var(--rm-ink-soft);
+  --card: var(--rm-dark);
+  --muted: var(--rm-dark);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-highlight: var(--accent-highlight);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface-shade: var(--surface-shade);
+
+  /* Fonts — next/font variables set in app/layout.tsx (Brandboard Block 4) */
+  --font-sans: var(--font-inter), "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: var(--font-barlow), "Barlow", "Helvetica Neue", Arial, sans-serif;
+  /* Technical badges (USDOT, hours) — system mono, no extra font download */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale (Brandboard Block 8) */
+  --text-h1: clamp(2.25rem, 4vw, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --text-h3--line-height: 1.2;
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.2;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 2);
+  --radius-card: var(--radius-card);
+}
+
+/*
+ * ============ MOTION (Step 7) ============
+ * Rebuilt from Magic UI patterns (blur-fade, marquee, border-beam) as CSS so nothing
+ * depends on JS to become visible. Every animation is gated by prefers-reduced-motion.
+ */
+@theme {
+  --animate-rm-blur-fade: rm-blur-fade 0.4s ease-out 0.04s both;
+  --animate-rm-marquee: rm-marquee var(--marquee-duration, 40s) linear infinite;
+
+  /* blur-fade, direction "down": 6px offset, 6px blur (Magic UI defaults) */
+  @keyframes rm-blur-fade {
+    from {
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+    }
+  }
+
+  @keyframes rm-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+/*
+ * blur-fade only where scripting is enabled. With JS off (or a browser without the
+ * `scripting` media feature) the element is simply visible — its hidden "from" state can
+ * never be what a no-JS reader sees, even if the animation timeline doesn't advance.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .rm-blur-fade {
+    animation: var(--animate-rm-blur-fade);
+  }
+}
+
+/* border-beam: a brand-red light travelling along the card border (decorative) */
+.rm-beam-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  border: var(--beam-width, 2px) solid transparent;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) padding-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+.rm-beam {
+  /* A conic wedge spinning behind the masked border ring. Animating `transform` keeps
+     it on the compositor — the first version animated offset-distance, which forced a
+     style recalc every frame (Lighthouse main-thread cost, Step 8). */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0% 78%,
+    var(--rm-red) 90%,
+    var(--rm-red-light) 96%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rm-beam {
+    animation: rm-beam-spin var(--beam-duration, 8s) linear infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes rm-beam-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    background-color: var(--rm-dark);
+  }
+  body {
+    @apply bg-background text-foreground;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
