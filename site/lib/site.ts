@@ -44,8 +44,9 @@ export const business = {
     tel: "tel:+18057579015",
     sms: "sms:+18057579015",
   },
-  // C3 operational account; no corporate email exists yet (Brief v1.1 §1)
-  email: "rmsanititationservice@gmail.com",
+  // Public address on the purchased domain (Luis, 2026-10-15). Forwards to the owner's
+  // inbox — set up at the mail host, not here. Replaces the C3 operational gmail.
+  email: "info@randmsanitation.com",
 
   // Canonical NAP — Brief v1.1 §1, used verbatim everywhere for citation consistency
   address: {
