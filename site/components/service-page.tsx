@@ -21,10 +21,11 @@ export function ServicePage({
   service,
   lead,
   heroImage,
+  heroAspect = "portrait",
   included,
   howItWorks,
   why,
-  extra,
+  note,
   faqs,
   gallery,
   finalCta,
@@ -32,16 +33,21 @@ export function ServicePage({
   service: Service
   lead: string
   heroImage: Photo
+  heroAspect?: "portrait" | "landscape"
   included: string[]
   howItWorks?: string
   why?: { title: string; items: string[] }
-  extra?: React.ReactNode
+  /** Extra plain-copy section after "Why R&M" (e.g. the events honest-fit statement) */
+  note?: { id: string; title: string; body: string }
   faqs: Faq[]
   gallery: Photo[]
   finalCta: string
 }) {
+  // Section index badges and base/shade rhythm follow whichever sections render
   let n = 0
   const idx = () => String(++n).padStart(2, "0")
+  let k = 0
+  const surface = () => (k++ % 2 === 0 ? "base" : "shade") as "base" | "shade"
 
   return (
     <>
@@ -55,7 +61,12 @@ export function ServicePage({
             <p className="mt-6 max-w-2xl text-body-lg text-foreground/85">{lead}</p>
             <CallButtons className="mt-8" />
           </div>
-          <div className="relative aspect-[4/5] w-full overflow-hidden lg:aspect-[3/4]">
+          <div
+            className={cn(
+              "relative w-full overflow-hidden",
+              heroAspect === "portrait" ? "aspect-[4/5] lg:aspect-[3/4]" : "aspect-video",
+            )}
+          >
             <Image
               src={heroImage.src}
               alt={heroImage.alt}
@@ -68,20 +79,20 @@ export function ServicePage({
         </Container>
       </section>
 
-      <Section labelledBy="included">
+      <Section surface={surface()} labelledBy="included">
         <SectionHeading id="included" eyebrow={idx()} title="What's included" />
         <CheckList items={included} className="mt-12" />
       </Section>
 
       {howItWorks && (
-        <Section surface="shade" labelledBy="how">
+        <Section surface={surface()} labelledBy="how">
           <SectionHeading id="how" eyebrow={idx()} title="How it works" />
           <p className="mt-8 max-w-3xl text-body-lg text-muted-foreground">{howItWorks}</p>
         </Section>
       )}
 
       {why && (
-        <Section labelledBy="why-service">
+        <Section surface={surface()} labelledBy="why-service">
           <SectionHeading id="why-service" eyebrow={idx()} title={why.title} />
           <ul className="mt-12 grid gap-px border border-border bg-border md:grid-cols-2">
             {why.items.map((item) => (
@@ -94,9 +105,14 @@ export function ServicePage({
         </Section>
       )}
 
-      {extra}
+      {note && (
+        <Section surface={surface()} labelledBy={note.id}>
+          <SectionHeading id={note.id} eyebrow={idx()} title={note.title} />
+          <p className="mt-8 max-w-3xl text-body-lg text-muted-foreground">{note.body}</p>
+        </Section>
+      )}
 
-      <Section surface="shade" labelledBy="faq">
+      <Section surface={surface()} labelledBy="faq">
         <SectionHeading id="faq" eyebrow={idx()} title="Frequently asked questions" />
         <div className="mt-12">
           <FaqList faqs={faqs} />
@@ -104,16 +120,28 @@ export function ServicePage({
       </Section>
 
       {gallery.length > 0 && (
-        <Section labelledBy="service-gallery">
+        <Section surface={surface()} labelledBy="service-gallery">
           <SectionHeading id="service-gallery" eyebrow={idx()} title="In the field" />
-          <ul className={cn("mt-12 grid grid-cols-2 gap-2", gallery.length >= 3 && "md:grid-cols-3")}>
+          <ul
+            className={cn(
+              "mt-12 grid gap-2",
+              gallery.length === 1 ? "max-w-4xl grid-cols-1" : "grid-cols-2",
+              gallery.length >= 3 && "md:grid-cols-3",
+            )}
+          >
             {gallery.map((p) => (
-              <li key={p.src} className="relative aspect-[3/4] overflow-hidden">
+              <li
+                key={p.src}
+                className={cn(
+                  "relative overflow-hidden",
+                  gallery.length === 1 ? "aspect-video" : "aspect-[3/4]",
+                )}
+              >
                 <Image
                   src={p.src}
                   alt={p.alt}
                   fill
-                  sizes="(min-width: 768px) 33vw, 50vw"
+                  sizes={gallery.length === 1 ? "(min-width: 896px) 896px, 100vw" : "(min-width: 768px) 33vw, 50vw"}
                   className="object-cover"
                 />
               </li>

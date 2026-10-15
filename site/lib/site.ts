@@ -131,6 +131,18 @@ export const trustItems = [
   { id: "counties", label: "Serving SLO + Santa Barbara Counties" },
 ] as const
 
+// Site-wide LocalBusiness areaServed — Build Plan §7, as written
+const areaServedCities = [
+  "Lompoc",
+  "Santa Maria",
+  "Santa Barbara",
+  "San Luis Obispo",
+  "Nipomo",
+  "Guadalupe",
+  "Paso Robles",
+] as const
+export const areaServed = areaServedCities
+
 // ── Services (one dedicated page each — Build Plan §1, §6) ──────────────────
 export type Service = {
   slug: string
@@ -178,6 +190,14 @@ export const services: Service[] = [
     metaTitle: "Portable Restrooms for Outdoor Events | Central Coast",
     metaDescription:
       "Clean, on-time portable restrooms for farm weddings, festivals, and outdoor events across the Central Coast. Call (805) 757-9015.",
+    // Derived from plan copy (BUILD-DECISIONS.md) — plan §7 only shows the ag example
+    schema: {
+      serviceType: "Portable Restrooms for Outdoor Events",
+      name: "Portable Restrooms for Outdoor Events on the Central Coast",
+      description:
+        "Clean, on-time portable restrooms for farm weddings, festivals, and outdoor events across the Central Coast.",
+      areaServed: [...areaServedCities],
+    },
   },
   {
     slug: "septic-pumping",
@@ -188,6 +208,14 @@ export const services: Service[] = [
     metaTitle: "Septic Pumping, Central Coast CA | R&M Sanitation",
     metaDescription:
       "Residential + commercial septic pumping with written estimates and photo service records. Same/next-day. Call (805) 757-9015.",
+    // Derived from plan copy (BUILD-DECISIONS.md) — plan §7 only shows the ag example
+    schema: {
+      serviceType: "Septic Pumping",
+      name: "Residential and Commercial Septic Pumping on the Central Coast",
+      description:
+        "Residential + commercial septic pumping with written estimates and photo service records.",
+      areaServed: [...areaServedCities],
+    },
   },
 ]
 
@@ -234,17 +262,6 @@ export const cities: City[] = [
 ]
 
 export const publishedCities = cities.filter((c) => c.published)
-
-// Site-wide LocalBusiness areaServed — Build Plan §7, as written
-export const areaServed = [
-  "Lompoc",
-  "Santa Maria",
-  "Santa Barbara",
-  "San Luis Obispo",
-  "Nipomo",
-  "Guadalupe",
-  "Paso Robles",
-] as const
 
 // ── Navigation ───────────────────────────────────────────────────────────────
 export const mainNav = [

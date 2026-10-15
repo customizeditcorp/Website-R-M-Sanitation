@@ -127,6 +127,92 @@ export const agricultural = {
   finalCta: "Need units on-site this week? Call Francisco directly.",
 }
 
+// ── /services/portable-restrooms-events ─────────────────────────────────────
+// Positioned for budget outdoor events — standard units only, never luxury trailers
+// (project CLAUDE.md copy warning; Persona v1.1 "Jessica").
+export const events = {
+  lead: "Farm weddings, festivals, community events, outdoor corporate gatherings. R&M delivers clean, stocked standard portable restrooms, sets them up two to three hours before guests arrive, and picks up after the event. One phone call gets you a per-event price with no surprises.",
+  included: [
+    "Standard portable restroom units — clean, stocked, delivered before guests arrive",
+    "Delivery and pickup within the event window",
+    "Single-point contact for the day of the event",
+    "Written quote per event with a deposit-based booking",
+    "Hand-wash stations available on request",
+    "Spanish or English coordination",
+  ],
+  honestFit:
+    "R&M carries standard units — not luxury trailers, not standalone flushing units. If your event budget calls for a premium wine-country restroom trailer, we're not the right fit, and we'll tell you up front. For budget-conscious outdoor events where clean, on-time delivery and reliable service are what matter, we're exactly the right call.",
+  faqs: [
+    {
+      question: "How far in advance should I book?",
+      answer: "Two to eight weeks ahead is typical. Minimum two weeks for new accounts.",
+    },
+    {
+      question: "Do you deliver before guests arrive?",
+      answer: "Yes. Standard delivery window is two to three hours before your event starts.",
+    },
+    {
+      question: "Do you have luxury trailers?",
+      answer:
+        "No. R&M carries standard units only. If you need a premium restroom trailer for a wine-country wedding, we'll point you to a provider who specializes in that.",
+    },
+    {
+      question: "Do you provide hand-wash stations?",
+      answer: "Yes, on request. Priced separately.",
+    },
+    {
+      question: "How do you handle delivery on uneven venue terrain?",
+      answer:
+        "Walk-through with the venue coordinator before the event. If a spot isn't accessible for our trucks, we tell you up front.",
+    },
+  ] satisfies Faq[],
+  finalCta: "Need units on-site this week? Call Francisco directly.",
+}
+
+// ── /services/septic-pumping ────────────────────────────────────────────────
+// End-to-end as R&M — the install/repair partner is never named (copy warning).
+export const septic = {
+  lead: "Toilet draining slow, odor in the yard, or a scheduled pre-sale inspection flagged your tank? R&M pumps septic tanks across SLO and Santa Barbara counties, provides a written estimate before work begins, and gives you a one-page service record with tank photos and a next-service-due date. Call Francisco for a same-day or next-day appointment.",
+  included: [
+    "Scheduled or same-day pumping, depending on urgency",
+    "Written estimate before work begins",
+    "One-page service record at completion (tank photos, condition notes, next-service-due date)",
+    "Preventive maintenance reminders at three-to-five-year intervals",
+    "End-to-end coverage: if the tank requires work beyond pumping, R&M handles it. One vendor, one invoice, one point of accountability.",
+  ],
+  howItWorks:
+    "Call Francisco. We schedule same-day or next-day. The truck arrives in the window. The technician walks the site, locates the tank, and gives you a written estimate before any work starts. We pump the tank, document the condition in a one-page service record with photos, and leave you with a next-service-due date so you don't have to remember. If the tank needs more than pumping, we handle that too.",
+  faqs: [
+    {
+      question: "How much does a septic pump cost?",
+      answer:
+        "Depends on tank size and access. You get a written estimate before any work starts — final invoice matches.",
+    },
+    {
+      question: "How often should I pump my tank?",
+      answer:
+        "Every three to five years is typical for a household of four. We leave you with a next-service-due date after every service.",
+    },
+    {
+      question: "What if my tank needs more than pumping?",
+      answer:
+        "We handle it. One vendor, one invoice, one point of accountability — you don't get sent off to another company to figure it out alone.",
+    },
+    {
+      question: "Do you give estimates over the phone?",
+      answer:
+        "We give you a price range on the phone. The written estimate happens on-site, before work starts.",
+    },
+    {
+      question: "Will you leave my yard clean?",
+      answer:
+        "Yes. We leave the area the way we found it, with the lid properly sealed and no truck ruts across the lawn when conditions allow.",
+    },
+  ] satisfies Faq[],
+  // Plan §5 septic lead, closing sentence
+  finalCta: "Call Francisco for a same-day or next-day appointment.",
+}
+
 // ── /contact ────────────────────────────────────────────────────────────────
 export const contact = {
   h1: "The fastest way to reach us is by phone.",
