@@ -1,5 +1,6 @@
 import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cta, nap, trustItems } from "@/lib/site";
 
 // Step 1 scaffolding check only — replaced by the real Home in Step 3.
 // Exercises every token layer so the build proves fonts, colors and surfaces resolve.
@@ -17,28 +18,30 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button size="cta" asChild>
-            <a href="tel:+18057579015">
+            <a href={cta.call.href}>
               <Phone aria-hidden="true" />
-              Call (805) 757-9015
+              {cta.call.label}
             </a>
           </Button>
-          <Button size="cta" variant="outline">
-            Secondary
+          <Button size="cta" variant="outline" asChild>
+            <a href={cta.text.href}>{cta.text.label}</a>
           </Button>
         </div>
       </section>
       <section className="surface-shade">
         <div className="mx-auto w-full max-w-5xl px-4 py-12">
           <h2 className="text-h2">Dark-shade band</h2>
-          <p className="mt-2 text-muted-foreground">--rm-ink-soft surface.</p>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-muted-foreground uppercase">
+            {trustItems.map((item) => (
+              <li key={item.id}>{item.label}</li>
+            ))}
+          </ul>
         </div>
       </section>
       <section className="surface-light">
         <div className="mx-auto w-full max-w-5xl px-4 py-12">
           <h2 className="text-h2">Light surface</h2>
-          <p className="mt-2 text-muted-foreground">
-            --rm-cream surface for data-heavy sections.
-          </p>
+          <p className="mt-2 text-muted-foreground">{nap.line}</p>
         </div>
       </section>
     </main>

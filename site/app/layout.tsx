@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Barlow, Inter } from "next/font/google";
+import { business, homeSeo, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 // Brandboard Block 4 — Barlow 600/700 for headings, Inter (variable) for body + CTAs.
@@ -17,9 +18,23 @@ const inter = Inter({
   display: "swap",
 });
 
-// Site-wide metadata (metadataBase, title template, OG) moves to lib/site.ts in Step 2.
+// Root metadata — canonical host comes from lib/site.ts (guardrail #2).
+// Plan §6 title tags are complete strings per page, so there is no title template.
+// Each page sets its own title, description and `alternates.canonical`.
 export const metadata: Metadata = {
-  title: "R&M Sanitation",
+  metadataBase: new URL(siteUrl),
+  title: homeSeo.title,
+  description: homeSeo.description,
+  applicationName: business.name,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: business.name,
+    url: siteUrl,
+    title: homeSeo.title,
+    description: homeSeo.description,
+  },
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
