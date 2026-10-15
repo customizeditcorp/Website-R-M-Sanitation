@@ -1,0 +1,46 @@
+import { Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+// Step 1 scaffolding check only — replaced by the real Home in Step 3.
+// Exercises every token layer so the build proves fonts, colors and surfaces resolve.
+export default function Home() {
+  return (
+    <main className="flex flex-1 flex-col">
+      <section className="mx-auto w-full max-w-5xl px-4 py-24">
+        <p className="font-mono text-sm tracking-wide text-muted-foreground uppercase">
+          Scaffolding — Step 1
+        </p>
+        <h1 className="mt-4 text-h1">R&amp;M Sanitation</h1>
+        <p className="mt-4 max-w-2xl text-body-lg text-muted-foreground">
+          Next.js App Router, Tailwind v4 and shadcn tokens wired to the
+          Brandboard v1.0 palette. Barlow for headings, Inter for body.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button size="cta" asChild>
+            <a href="tel:+18057579015">
+              <Phone aria-hidden="true" />
+              Call (805) 757-9015
+            </a>
+          </Button>
+          <Button size="cta" variant="outline">
+            Secondary
+          </Button>
+        </div>
+      </section>
+      <section className="surface-shade">
+        <div className="mx-auto w-full max-w-5xl px-4 py-12">
+          <h2 className="text-h2">Dark-shade band</h2>
+          <p className="mt-2 text-muted-foreground">--rm-ink-soft surface.</p>
+        </div>
+      </section>
+      <section className="surface-light">
+        <div className="mx-auto w-full max-w-5xl px-4 py-12">
+          <h2 className="text-h2">Light surface</h2>
+          <p className="mt-2 text-muted-foreground">
+            --rm-cream surface for data-heavy sections.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}
