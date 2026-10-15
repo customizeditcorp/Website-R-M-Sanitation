@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   partialPrefetching: true,
+  // Staging guard (Step 9): any *.vercel.app host is noindex, nofollow. The canonical
+  // host (www.rmsanitation.com) never matches, so the guard switches off by itself once
+  // the domain is connected — nobody has to remember to remove it.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(?<sub>.*)\\.vercel\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ]
+  },
   turbopack: {
     rules: {
       "*.css": {
