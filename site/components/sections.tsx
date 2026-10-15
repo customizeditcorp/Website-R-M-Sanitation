@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { ChevronRight, MessageSquareText, Phone } from "lucide-react"
 import { TechBadge } from "@/components/badge"
+import { Marquee } from "@/components/motion/marquee"
+import { NumberTicker } from "@/components/motion/number-ticker"
 import { Button } from "@/components/ui/button"
 import { business, cta, trustItems } from "@/lib/site"
 import type { Faq } from "@/lib/schema"
@@ -132,21 +134,30 @@ export function FinalCta({ title }: { title: string }) {
 }
 
 // ── Trust bar ───────────────────────────────────────────────────────────────
-// Static, fully readable list. Motion (marquee / number ticker) is layered on top in
-// Step 7 and must leave this markup readable with JS off.
+// Server HTML: one static, readable row (JS off). After hydration the Marquee adds
+// aria-hidden copies and scrolls; the "20+" counts up via NumberTicker (final value
+// is what the server renders).
 export function TrustBar() {
   return (
     <section aria-label="Credentials" className="surface-shade border-y border-border">
-      <Container>
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-5 lg:justify-between">
-          {trustItems.map((item) => (
-            <li key={item.id} className="flex items-center gap-2 font-mono text-xs tracking-wider text-foreground/90 uppercase">
-              <span aria-hidden="true" className="size-1.5 bg-primary" />
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      </Container>
+      <Marquee label="Credentials" className="py-5">
+        {trustItems.map((item) => (
+          <li
+            key={item.id}
+            className="flex shrink-0 items-center gap-2 font-mono text-xs tracking-wider whitespace-nowrap text-foreground/90 uppercase"
+          >
+            <span aria-hidden="true" className="size-1.5 bg-primary" />
+            {"count" in item ? (
+              <span>
+                <NumberTicker value={item.count} />
+                {item.label.slice(String(item.count).length)}
+              </span>
+            ) : (
+              item.label
+            )}
+          </li>
+        ))}
+      </Marquee>
     </section>
   )
 }

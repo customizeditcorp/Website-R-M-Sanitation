@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Phone } from "lucide-react"
 import { TechBadge } from "@/components/badge"
+import { BorderBeam } from "@/components/motion/border-beam"
 import {
   CallButtons,
   Container,
@@ -221,7 +222,8 @@ function Hero() {
       <Container className="grid grid-cols-1 gap-10 py-20 md:py-28 lg:grid-cols-[3fr_2fr] lg:items-end">
         <div>
           <TechBadge boxed>Lompoc, CA · Central Coast</TechBadge>
-          <h1 id="hero-title" className="mt-6 max-w-3xl text-h1 tracking-tight">
+          {/* blur-fade: CSS, only when scripting is enabled — with JS off the H1 is plain visible */}
+          <h1 id="hero-title" className="rm-blur-fade mt-6 max-w-3xl text-h1 tracking-tight">
             {home.h1}
           </h1>
           <p className="mt-6 max-w-2xl text-body-lg text-foreground/85">{home.subhead}</p>
@@ -235,7 +237,8 @@ function Hero() {
           </figure>
         </div>
 
-        <div className="border border-border bg-background/85 p-6 backdrop-blur md:p-8">
+        <div className="relative border border-border bg-background/85 p-6 backdrop-blur md:p-8">
+          <BorderBeam />
           <TechBadge>Direct line · {business.spanishBadge}</TechBadge>
           <p className="mt-4 font-heading text-h4 font-semibold">Call Francisco</p>
           <a
