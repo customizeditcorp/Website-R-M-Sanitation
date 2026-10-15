@@ -275,10 +275,10 @@ export const mainNav = [
   { href: "/contact", label: "Contact" },
 ] as const
 
-export const legalNav = [
-  { href: "/legal/terms", label: "Terms" },
-  { href: "/legal/privacy", label: "Privacy" },
-] as const
+// /legal/terms and /legal/privacy are in the plan's sitemap but have no text yet.
+// Hidden until the client delivers the legal copy (BUILD-DECISIONS.md) — never invented.
+// Restore: { href: "/legal/terms", label: "Terms" }, { href: "/legal/privacy", label: "Privacy" }
+export const legalNav: { href: string; label: string }[] = []
 
 // ── Home SEO (Build Plan §6) ─────────────────────────────────────────────────
 export const homeSeo = {

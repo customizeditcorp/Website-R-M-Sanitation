@@ -71,7 +71,9 @@
   --secondary: var(--rm-white);
   --secondary-foreground: var(--rm-ink);
   --muted: var(--rm-white);
-  --muted-foreground: var(--rm-slate);
+  /* slate #64748b on cream #f8f8f8 is 4.48:1 (fails AA). Shift slate 15% toward ink
+     to clear 4.5:1 while staying in the brand family. */
+  --muted-foreground: color-mix(in srgb, var(--rm-slate) 85%, var(--rm-ink));
   --destructive: var(--rm-red);
   --border: color-mix(in srgb, var(--rm-slate) 20%, transparent);
   --input: color-mix(in srgb, var(--rm-slate) 40%, transparent);
@@ -187,6 +189,7 @@
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
+  overflow: hidden;
   border: var(--beam-width, 2px) solid transparent;
   -webkit-mask:
     linear-gradient(#000 0 0) padding-box,
@@ -198,30 +201,34 @@
 }
 
 .rm-beam {
+  /* A conic wedge spinning behind the masked border ring. Animating `transform` keeps
+     it on the compositor — the first version animated offset-distance, which forced a
+     style recalc every frame (Lighthouse main-thread cost, Step 8). */
   position: absolute;
-  width: var(--beam-size, 96px);
+  top: 50%;
+  left: 50%;
+  width: 200%;
   aspect-ratio: 1;
-  background: linear-gradient(to left, var(--rm-red-light), var(--rm-red), transparent);
-  offset-path: rect(0 auto auto 0 round var(--beam-size, 96px));
-  offset-distance: 0%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0% 78%,
+    var(--rm-red) 90%,
+    var(--rm-red-light) 96%,
+    transparent 100%
+  );
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .rm-beam {
-    animation: rm-beam var(--beam-duration, 8s) linear infinite;
+    animation: rm-beam-spin var(--beam-duration, 8s) linear infinite;
+    will-change: transform;
   }
 }
 
-@keyframes rm-beam {
+@keyframes rm-beam-spin {
   to {
-    offset-distance: 100%;
-  }
-}
-
-/* No offset-path support → no beam (it would sit frozen in a corner) */
-@supports not (offset-path: rect(0 auto auto 0)) {
-  .rm-beam-frame {
-    display: none;
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 

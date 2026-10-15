@@ -210,7 +210,8 @@ function Hero() {
         src={photos.truckRanch.src}
         alt={photos.truckRanch.alt}
         fill
-        priority
+        loading="eager"
+        fetchPriority="high"
         sizes="100vw"
         className="-z-20 object-cover"
       />

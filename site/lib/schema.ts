@@ -20,7 +20,10 @@ const city = (name: string) => ({ "@type": "City", name })
 export function localBusinessSchema() {
   return {
     "@context": context,
-    "@type": ["LocalBusiness", "SepticSystemService"],
+    // Plan §7 adds "SepticSystemService" — not a schema.org type (404 on schema.org,
+    // absent from the vocabulary). No real subtype fits portable sanitation + septic
+    // pumping, so plain LocalBusiness (BUILD-DECISIONS.md).
+    "@type": "LocalBusiness",
     "@id": business.id,
     name: business.name,
     legalName: business.legalName,

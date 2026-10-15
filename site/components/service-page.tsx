@@ -71,7 +71,8 @@ export function ServicePage({
               src={heroImage.src}
               alt={heroImage.alt}
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
             />

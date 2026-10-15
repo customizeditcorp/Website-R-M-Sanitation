@@ -64,15 +64,17 @@ export function SiteFooter() {
             <span className="font-mono tracking-wider">USDOT {business.usdot}</span> · Insured
             and bonded.
           </p>
-          <ul className="flex gap-4">
-            {legalNav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-foreground">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {legalNav.length > 0 && (
+            <ul className="flex gap-4">
+              {legalNav.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:text-foreground">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </footer>

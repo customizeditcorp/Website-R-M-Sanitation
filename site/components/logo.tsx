@@ -13,7 +13,7 @@ export function LogoColor({ className }: { className?: string }) {
         width={1669}
         height={1080}
         unoptimized
-        priority
+        loading="eager"
         className="h-9 w-auto"
       />
     </span>

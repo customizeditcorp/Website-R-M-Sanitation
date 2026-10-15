@@ -59,7 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
-        {/* Site-wide LocalBusiness + SepticSystemService (plan §7) */}
+        {/* Site-wide LocalBusiness (plan §7; invalid SepticSystemService subtype dropped) */}
         <JsonLd data={localBusinessSchema()} />
       </body>
     </html>
