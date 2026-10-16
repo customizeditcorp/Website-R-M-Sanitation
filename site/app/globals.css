@@ -144,6 +144,13 @@
  * Rebuilt from Magic UI patterns (blur-fade, marquee, border-beam) as CSS so nothing
  * depends on JS to become visible. Every animation is gated by prefers-reduced-motion.
  */
+/* Minimum text size 13px: the smallest Tailwind step (text-xs, 12px by default) is
+   raised to 13px so labels, badges and the trust bar stay legible outdoors on a phone. */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.125 / 0.8125);
+}
+
 @theme {
   --animate-rm-blur-fade: rm-blur-fade 0.4s ease-out 0.04s both;
   --animate-rm-marquee: rm-marquee var(--marquee-duration, 40s) linear infinite;

@@ -112,7 +112,8 @@ export default function ContactPage() {
               <br />
               {nap.cityLine}
               <br />
-              <a href={business.phone.tel} className="font-semibold hover:text-primary">
+              <a href={business.phone.tel}
+                className="inline-flex min-h-11 items-center font-semibold hover:text-primary">
                 {business.phone.display}
               </a>
             </address>
@@ -120,7 +121,7 @@ export default function ContactPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-primary hover:underline"
             >
               <MapPin aria-hidden="true" className="size-4" />
               Get directions

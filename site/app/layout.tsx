@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow, Inter } from "next/font/google";
 import { JsonLd } from "@/components/json-ld";
+import { MobileCallBar } from "@/components/mobile-call-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { localBusinessSchema } from "@/lib/schema";
@@ -47,7 +48,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${barlow.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* Bottom padding reserves the mobile call bar (≈65px) so it never covers the footer */}
+      <body className="flex min-h-full flex-col pb-[calc(4.25rem+env(safe-area-inset-bottom))] md:pb-0">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
@@ -59,6 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <MobileCallBar />
         {/* Site-wide LocalBusiness (plan §7; invalid SepticSystemService subtype dropped) */}
         <JsonLd data={localBusinessSchema()} />
       </body>

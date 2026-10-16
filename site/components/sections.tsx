@@ -116,7 +116,10 @@ export function FinalCta({ title }: { title: string }) {
             {title}
           </h2>
           <p className="mt-3 text-body-lg">
-            <a href={business.phone.tel} className="font-semibold underline-offset-4 hover:underline">
+            <a
+              href={business.phone.tel}
+              className="inline-flex min-h-11 items-center font-semibold underline-offset-4 hover:underline"
+            >
               {business.phone.display}
             </a>{" "}
             · {business.spanishBadge}
@@ -184,7 +187,7 @@ export function Breadcrumbs({ current }: { current: string }) {
     <nav aria-label="Breadcrumb">
       <ol className="flex items-center gap-1 font-mono text-xs tracking-wider text-muted-foreground uppercase">
         <li>
-          <Link href="/" className="hover:text-foreground">
+          <Link href="/" className="inline-flex min-h-11 items-center hover:text-foreground">
             Home
           </Link>
         </li>

@@ -18,7 +18,10 @@ export function SiteFooter() {
             <br />
             {nap.cityLine}
             <br />
-            <a href={business.phone.tel} className="text-foreground hover:underline">
+            <a
+              href={business.phone.tel}
+              className="inline-flex min-h-11 items-center text-foreground hover:underline"
+            >
               {business.phone.display}
             </a>
           </address>
@@ -49,7 +52,7 @@ export function SiteFooter() {
           <li>
             <a
               href={`mailto:${business.email}`}
-              className="text-sm break-all text-muted-foreground hover:text-foreground"
+              className="inline-flex min-h-11 items-center text-sm break-all text-muted-foreground hover:text-foreground"
             >
               {business.email}
             </a>
@@ -68,7 +71,7 @@ export function SiteFooter() {
             <ul className="flex gap-4">
               {legalNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="hover:text-foreground">
+                  <Link href={item.href} className="inline-flex min-h-11 items-center hover:text-foreground">
                     {item.label}
                   </Link>
                 </li>
@@ -87,7 +90,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
       <h2 className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
         {title}
       </h2>
-      <ul className="mt-4 space-y-2">{children}</ul>
+      <ul className="mt-3">{children}</ul>
     </div>
   )
 }
@@ -95,7 +98,10 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="text-sm text-foreground/85 hover:text-foreground">
+      <Link
+        href={href}
+        className="inline-flex min-h-11 items-center text-sm text-foreground/85 hover:text-foreground"
+      >
         {children}
       </Link>
     </li>
