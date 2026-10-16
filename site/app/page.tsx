@@ -244,7 +244,7 @@ function Hero() {
           <p className="mt-4 font-heading text-h4 font-semibold">Call Francisco</p>
           <a
             href={business.phone.tel}
-            className="mt-1 flex items-center gap-3 font-heading text-h2 font-bold tracking-tight hover:text-accent-highlight"
+            className="mt-1 flex min-h-11 items-center gap-3 font-heading text-h2 font-bold tracking-tight hover:text-accent-highlight"
           >
             <Phone aria-hidden="true" className="size-7 text-primary" />
             {business.phone.display}

@@ -104,7 +104,8 @@ export function CityPage({ slug }: { slug: string }) {
               <br />
               {nap.cityLine}
               <br />
-              <a href={business.phone.tel} className="font-semibold hover:text-primary">
+              <a href={business.phone.tel}
+                className="inline-flex min-h-11 items-center font-semibold hover:text-primary">
                 {business.phone.display}
               </a>
             </address>

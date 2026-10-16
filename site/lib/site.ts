@@ -269,13 +269,20 @@ export const cities: City[] = [
 export const publishedCities = cities.filter((c) => c.published)
 
 // ── Navigation ───────────────────────────────────────────────────────────────
-export const mainNav = [
-  { href: "/#services", label: "Services" },
+export type NavItem = { href: string; label: string; children?: { href: string; label: string }[] }
+
+// "Services" opens a submenu with every service page (one dedicated page per service)
+export const mainNav: NavItem[] = [
+  {
+    href: "/#services",
+    label: "Services",
+    children: services.map((s) => ({ href: s.href, label: s.name })),
+  },
   { href: "/#areas", label: "Areas" },
   { href: "/about", label: "About" },
   { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
-] as const
+]
 
 // /legal/terms and /legal/privacy are in the plan's sitemap but have no text yet.
 // Hidden until the client delivers the legal copy (BUILD-DECISIONS.md) — never invented.
