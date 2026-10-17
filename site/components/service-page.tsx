@@ -10,7 +10,7 @@ import {
   Section,
   SectionHeading,
 } from "@/components/sections"
-import type { Photo } from "@/lib/images"
+import { focus, isPortrait, type Photo } from "@/lib/images"
 import { breadcrumbSchema, faqSchema, serviceSchema, type Faq } from "@/lib/schema"
 import type { Service } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -75,6 +75,7 @@ export function ServicePage({
               fetchPriority="high"
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
+              style={focus(heroImage)}
             />
           </div>
         </Container>
@@ -125,7 +126,7 @@ export function ServicePage({
           <SectionHeading id="service-gallery" eyebrow={idx()} title="In the field" />
           <ul
             className={cn(
-              "mt-12 grid gap-2",
+              "mt-12 grid items-start gap-2",
               gallery.length === 1 ? "max-w-4xl grid-cols-1" : "grid-cols-2",
               gallery.length >= 3 && "md:grid-cols-3",
             )}
@@ -135,7 +136,9 @@ export function ServicePage({
                 key={p.src}
                 className={cn(
                   "relative overflow-hidden",
-                  gallery.length === 1 ? "aspect-video" : "aspect-[3/4]",
+                  // Box follows the photo: portrait stays portrait, landscape stays
+                  // landscape — no subject cropped out (e.g. the toilet in interiors)
+                  gallery.length === 1 ? "aspect-video" : isPortrait(p) ? "aspect-[3/4]" : "aspect-[4/3]",
                 )}
               >
                 <Image
@@ -144,6 +147,7 @@ export function ServicePage({
                   fill
                   sizes={gallery.length === 1 ? "(min-width: 896px) 896px, 100vw" : "(min-width: 768px) 33vw, 50vw"}
                   className="object-cover"
+                  style={focus(p)}
                 />
               </li>
             ))}
