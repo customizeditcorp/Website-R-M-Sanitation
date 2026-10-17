@@ -252,11 +252,18 @@
   --rm-grid-line: rgb(255 255 255 / 0.055);
 }
 
-/* Grain on every dark surface (the cream .surface-light stays clean for long reading) */
-body,
-.surface-shade {
+/* Grain as ONE fixed, composited overlay: painted once, never repainted on scroll or
+   under animations (as a body background it doubled style/paint work — measured).
+   Sits under the header/call bar (z-50) and ignores pointer events. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
   background-image: var(--rm-grain);
   background-size: 180px 180px;
+  transform: translateZ(0);
 }
 
 /* Technical grid (rebuilt from Magic UI grid-pattern as CSS): fades out from one corner */
