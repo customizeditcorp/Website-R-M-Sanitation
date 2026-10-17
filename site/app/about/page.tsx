@@ -11,7 +11,7 @@ import {
   SectionHeading,
 } from "@/components/sections"
 import { about, home } from "@/lib/content"
-import { photos } from "@/lib/images"
+import { focus, photos } from "@/lib/images"
 import { breadcrumbSchema } from "@/lib/schema"
 import { business, cities } from "@/lib/site"
 
@@ -69,6 +69,7 @@ export default function AboutPage() {
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
+              style={focus(photos.truckRanch)}
             />
           </div>
         </div>

@@ -13,8 +13,9 @@ import {
   SectionHeading,
 } from "@/components/sections"
 import { cityContent, home } from "@/lib/content"
-import { photos, type Photo } from "@/lib/images"
+import { focus, isPortrait, photos, type Photo } from "@/lib/images"
 import { breadcrumbSchema } from "@/lib/schema"
+import { cn } from "@/lib/utils"
 import { business, getCity, nap, services } from "@/lib/site"
 
 // City template (plan §4): Hero + hyperlocal intro → services in [City] →
@@ -28,7 +29,8 @@ import { business, getCity, nap, services } from "@/lib/site"
 // can't prove (no GPS on any file — placement-map.md).
 const cityPhoto: Record<string, Photo> = {
   lompoc: photos.truckRanch,
-  "santa-maria": photos.agTrailerUnit,
+  // Bilingual hand-wash station: ag-crew context, no old "Quality Truck Body" decal
+  "santa-maria": photos.agTrailerHandWash,
 }
 
 function resolve(slug: string) {
@@ -111,13 +113,20 @@ export function CityPage({ slug }: { slug: string }) {
             </address>
           </div>
           {photo && (
-            <div className="relative aspect-video w-full overflow-hidden">
+            <div
+              className={cn(
+                "relative w-full overflow-hidden",
+                // A portrait photo in a 16:9 box kept only 42% of the image
+                isPortrait(photo) ? "mx-auto aspect-[4/5] max-w-sm" : "aspect-video",
+              )}
+            >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes={isPortrait(photo) ? "(min-width: 640px) 384px, 100vw" : "(min-width: 1024px) 50vw, 100vw"}
                 className="object-cover"
+                style={focus(photo)}
               />
             </div>
           )}

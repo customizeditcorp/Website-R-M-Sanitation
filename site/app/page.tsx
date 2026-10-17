@@ -13,7 +13,7 @@ import {
   TrustBar,
 } from "@/components/sections"
 import { home } from "@/lib/content"
-import { galleryIsLive, photos, type Photo } from "@/lib/images"
+import { focus, galleryIsLive, photos, type Photo } from "@/lib/images"
 import { business, cities, homeSeo, services } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -23,17 +23,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 }
 
+// One distinct photo per service so the cards don't read as the same product:
+// ag = trailer hand-wash with the bilingual sign (field compliance), events = clean
+// interior (the event coordinator's worry is dirty units), septic = the job itself.
 const serviceImages: Record<string, Photo> = {
-  "agricultural-portable": photos.agTrailerUnit,
-  "portable-restrooms-events": photos.standardUnit,
+  "agricultural-portable": photos.agTrailerHandWash,
+  "portable-restrooms-events": photos.interiorUrinal,
   "septic-pumping": photos.septicLids,
 }
 
+// No photo repeats elsewhere on the Home (hero, Why R&M and the cards use the others)
 const galleryStrip = [
-  photos.agTrailerSinks,
+  photos.agTrailerUnit,
+  photos.standardUnit,
   photos.interiorToilet,
-  photos.interiorUrinal,
-  photos.agTrailerHandWash,
+  photos.truckRanch,
 ]
 
 // Section order follows the Risk/Trust lever (plan Decision Ledger):
@@ -61,11 +65,12 @@ export default function HomePage() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div className="relative aspect-[4/5] w-full overflow-hidden lg:order-last">
             <Image
-              src={photos.agTrailerHandWash.src}
-              alt={photos.agTrailerHandWash.alt}
+              src={photos.agTrailerSinks.src}
+              alt={photos.agTrailerSinks.alt}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
+              style={focus(photos.agTrailerSinks)}
             />
           </div>
           <div>
@@ -117,6 +122,7 @@ export default function HomePage() {
                       fill
                       sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      style={focus(img)}
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-6">
@@ -153,7 +159,14 @@ export default function HomePage() {
         <ul className="mt-12 grid grid-cols-2 gap-2 md:grid-cols-4">
           {galleryStrip.map((p) => (
             <li key={p.src} className="relative aspect-square overflow-hidden">
-              <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover" />
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className="object-cover"
+                style={focus(p)}
+              />
             </li>
           ))}
         </ul>
@@ -214,6 +227,7 @@ function Hero() {
         fetchPriority="high"
         sizes="100vw"
         className="-z-20 object-cover"
+        style={focus(photos.truckRanch)}
       />
       {/* Scrim ≥ 50% over photos with text (Brandboard Block 2) */}
       <div

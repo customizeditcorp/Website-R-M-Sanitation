@@ -11,11 +11,24 @@ export type Photo = {
   width: number
   height: number
   alt: string
+  /** CSS object-position: keeps the subject in frame when a box crops the photo */
+  position?: string
 }
 
-function photo(file: string, width: number, height: number, alt: string): Photo {
-  return { src: `/images/${file}`, width, height, alt }
+function photo(
+  file: string,
+  width: number,
+  height: number,
+  alt: string,
+  position?: string,
+): Photo {
+  return { src: `/images/${file}`, width, height, alt, position }
 }
+
+export const isPortrait = (p: Photo) => p.height > p.width
+
+/** Inline style for <Image fill>: crops toward the photo's subject instead of dead center */
+export const focus = (p: Photo) => (p.position ? { objectPosition: p.position } : undefined)
 
 export const photos = {
   truckRanch: photo(
@@ -23,6 +36,7 @@ export const photos = {
     2400,
     1350,
     "R&M Sanitation vacuum pump truck parked on a grassy ranch property",
+    "30% 50%", // truck sits left of center
   ),
   septicLids: photo(
     "septic-pumping-tank-lids-uncovered-ranch-01.jpg",
@@ -35,6 +49,7 @@ export const photos = {
     1200,
     1600,
     "Portable restroom mounted on a field sanitation trailer, with a women's sign and step platform",
+    "50% 45%",
   ),
   agTrailerSinks: photo(
     "agricultural-restroom-trailer-hand-wash-sinks-01.jpg",
@@ -47,18 +62,21 @@ export const photos = {
     1200,
     1600,
     "Trailer hand-wash station with soap and paper towel dispensers and a bilingual do-not-drink-water sign",
+    "50% 30%", // keep the bilingual sign and SOAP/JABÓN dispenser in frame
   ),
   standardUnit: photo(
     "portable-restroom-tan-standard-unit-01.jpg",
     1200,
     1600,
     "Standard tan and gray portable restroom with R&M decal",
+    "50% 40%",
   ),
   interiorToilet: photo(
     "portable-restroom-interior-toilet-01.jpg",
     1600,
     1200,
     "Clean interior of a standard portable restroom showing the toilet seat",
+    "45% 50%", // seat sits low and left of center
   ),
   interiorUrinal: photo(
     "portable-restroom-interior-urinal-01.jpg",
