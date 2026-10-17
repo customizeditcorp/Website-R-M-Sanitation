@@ -1,3 +1,4 @@
+import { GridBackdrop } from "@/components/badge"
 import { Breadcrumbs, Container } from "@/components/sections"
 import { business } from "@/lib/site"
 
@@ -14,7 +15,8 @@ export function ContainerHero({
   children?: React.ReactNode
 }) {
   return (
-    <section aria-labelledby="container-title" className="border-b border-border">
+    <section aria-labelledby="container-title" className="relative isolate overflow-hidden border-b border-border">
+        <GridBackdrop />
       <Container className="py-14 md:py-20">
         <Breadcrumbs current={crumb} />
         <h1 id="container-title" className="mt-6 max-w-3xl text-h1 tracking-tight">

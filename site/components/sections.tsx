@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ChevronRight, MessageSquareText, Phone } from "lucide-react"
-import { TechBadge } from "@/components/badge"
+import { GridBackdrop, TechBadge } from "@/components/badge"
 import { Marquee } from "@/components/motion/marquee"
 import { NumberTicker } from "@/components/motion/number-ticker"
 import { Button } from "@/components/ui/button"
@@ -37,8 +37,10 @@ export function Section({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn(surfaceClass[surface], "py-16 md:py-24", className)}
+      className={cn(surfaceClass[surface], "relative isolate overflow-hidden py-16 md:py-24", className)}
     >
+      {/* Technical grid behind the section heading on dark surfaces */}
+      {surface !== "light" && <GridBackdrop />}
       <Container>{children}</Container>
     </section>
   )
@@ -109,7 +111,7 @@ export function CallButtons({ className }: { className?: string }) {
 /** Final CTA band — the one red section per page (Brandboard layout rules). */
 export function FinalCta({ title }: { title: string }) {
   return (
-    <section aria-labelledby="final-cta" className="bg-primary text-primary-foreground">
+    <section aria-labelledby="final-cta" className="rm-red-band text-primary-foreground">
       <Container className="flex flex-col gap-6 py-14 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 id="final-cta" className="text-h2 tracking-tight">

@@ -1,3 +1,4 @@
+import { GridBackdrop } from "@/components/badge"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -60,7 +61,8 @@ export function CityPage({ slug }: { slug: string }) {
 
   return (
     <>
-      <section aria-labelledby="city-title" className="border-b border-border">
+      <section aria-labelledby="city-title" className="relative isolate overflow-hidden border-b border-border">
+        <GridBackdrop />
         <Container className="py-14 md:py-20">
           <Breadcrumbs current={city.name} />
           <h1 id="city-title" className="mt-6 max-w-4xl text-h1 tracking-tight">
@@ -75,7 +77,7 @@ export function CityPage({ slug }: { slug: string }) {
         <SectionHeading id="city-services" eyebrow="01" title={`Services available in ${city.name}`} />
         <ul className="mt-12 grid gap-px border border-border bg-border md:grid-cols-3">
           {services.map((s) => (
-            <li key={s.slug} className="bg-background">
+            <li key={s.slug} className="rm-corners bg-background">
               <Link
                 href={s.href}
                 className="group flex h-full items-center justify-between gap-4 p-6 hover:text-accent-highlight"
@@ -99,7 +101,7 @@ export function CityPage({ slug }: { slug: string }) {
               eyebrow="02"
               title={`Serving ${city.name} from our ${business.address.city} base`}
             />
-            <address className="mt-8 border border-border bg-card p-8 text-body-lg not-italic">
+            <address className="rm-corners mt-8 border border-border bg-card p-8 text-body-lg not-italic">
               <span className="font-heading text-h4 font-semibold">{business.name}</span>
               <br />
               {nap.streetLine}

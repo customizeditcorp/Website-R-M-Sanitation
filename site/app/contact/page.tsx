@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowUpRight, Mail, MapPin, MessageSquareText, Phone } from "lucide-react"
-import { TechBadge } from "@/components/badge"
+import { GridBackdrop, TechBadge } from "@/components/badge"
 import { JsonLd } from "@/components/json-ld"
 import { Breadcrumbs, Container, Section, SectionHeading } from "@/components/sections"
 import { contact } from "@/lib/content"
@@ -30,7 +30,8 @@ const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encode
 export default function ContactPage() {
   return (
     <>
-      <section aria-labelledby="contact-title" className="border-b border-border">
+      <section aria-labelledby="contact-title" className="relative isolate overflow-hidden border-b border-border">
+        <GridBackdrop />
         <Container className="py-14 md:py-20">
           <Breadcrumbs current="Contact" />
           <h1 id="contact-title" className="mt-6 max-w-3xl text-h1 tracking-tight">
@@ -105,7 +106,7 @@ export default function ContactPage() {
 
           <div>
             <SectionHeading id="visit" eyebrow="02" title="Our base" />
-            <address className="mt-8 border border-border bg-card p-8 text-body-lg not-italic">
+            <address className="rm-corners mt-8 border border-border bg-card p-8 text-body-lg not-italic">
               <span className="font-heading text-h4 font-semibold">{business.name}</span>
               <br />
               {nap.streetLine}
