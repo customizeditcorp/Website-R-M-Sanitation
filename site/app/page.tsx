@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Phone } from "lucide-react"
-import { TechBadge } from "@/components/badge"
+import { GridBackdrop, TechBadge } from "@/components/badge"
 import { BorderBeam } from "@/components/motion/border-beam"
 import {
   CallButtons,
@@ -52,9 +52,11 @@ export default function HomePage() {
         <SectionHeading id="protect" eyebrow="01" title={home.protect.title} />
         <ol className="mt-12 grid gap-px border border-border bg-border md:grid-cols-3">
           {home.protect.cards.map((card, i) => (
-            <li key={card.title} className="bg-background p-8">
-              <TechBadge className="text-accent-highlight">{String(i + 1).padStart(2, "0")}</TechBadge>
-              <h3 className="mt-4 text-h4 font-semibold">{card.title}</h3>
+            <li key={card.title} className="rm-corners bg-background p-8">
+              <span aria-hidden="true" className="rm-numeral">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-6 text-h4 font-semibold">{card.title}</h3>
               <p className="mt-3 text-muted-foreground">{card.body}</p>
             </li>
           ))}
@@ -80,10 +82,13 @@ export default function HomePage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <dl className="mt-10 grid grid-cols-3 border-y border-border">
-              <Stat value={`${business.experienceYears}+`} label="Years of field experience" />
-              <Stat value="3" label="Modern service trucks" />
-              <Stat value={business.usdot} label="USDOT" mono />
+            <dl className="mt-10 grid grid-cols-2 border-y border-border">
+              <BigStat value={`${business.experienceYears}+`} label="Years of field experience" />
+              <BigStat value="3" label="Modern service trucks" />
+              <div className="col-span-2 flex items-baseline justify-between gap-4 border-t border-border py-4">
+                <dt className="text-xs text-muted-foreground uppercase">USDOT</dt>
+                <dd className="font-mono text-h3 font-bold tracking-wider">{business.usdot}</dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -93,9 +98,12 @@ export default function HomePage() {
         <SectionHeading id="trucks" eyebrow="03" title={home.trucks.title} />
         <ul className="mt-12 grid gap-px border border-border bg-border md:grid-cols-3">
           {home.trucks.items.map((truck) => (
-            <li key={truck.label} className="bg-background p-8">
-              <TechBadge>{truck.label}</TechBadge>
-              <p className="mt-4 font-heading text-h3 font-semibold">{truck.title}</p>
+            <li key={truck.label} className="rm-corners bg-background p-8">
+              <span aria-hidden="true" className="rm-numeral">
+                {truck.label.replace(/\D/g, "")}
+              </span>
+              <TechBadge className="mt-6">{truck.label}</TechBadge>
+              <p className="mt-2 font-heading text-h3 font-semibold">{truck.title}</p>
             </li>
           ))}
         </ul>
@@ -111,7 +119,7 @@ export default function HomePage() {
                 <Link
                   href={service.href}
                   className={cn(
-                    "group flex h-full flex-col border bg-background transition-colors hover:border-primary",
+                    "rm-corners group flex h-full flex-col border bg-background transition-colors hover:border-primary",
                     service.star ? "border-primary" : "border-border",
                   )}
                 >
@@ -234,6 +242,7 @@ function Hero() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/80 to-background/50"
       />
+      <GridBackdrop side="right" className="h-full" />
       <Container className="grid grid-cols-1 gap-10 py-20 md:py-28 lg:grid-cols-[3fr_2fr] lg:items-end">
         <div>
           <TechBadge boxed>Lompoc, CA · Central Coast</TechBadge>
@@ -252,7 +261,7 @@ function Hero() {
           </figure>
         </div>
 
-        <div className="relative border border-border bg-background/85 p-6 backdrop-blur md:p-8">
+        <div className="rm-corners relative border border-border bg-background/85 p-6 backdrop-blur md:p-8">
           <BorderBeam />
           <TechBadge>Direct line · {business.spanishBadge}</TechBadge>
           <p className="mt-4 font-heading text-h4 font-semibold">Call Francisco</p>
@@ -270,13 +279,11 @@ function Hero() {
   )
 }
 
-function Stat({ value, label, mono = false }: { value: string; label: string; mono?: boolean }) {
+function BigStat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="py-5 pr-4">
-      <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd className={cn("mt-1 text-h3 font-bold", mono ? "font-mono text-h4" : "font-heading")}>
-        {value}
-      </dd>
+    <div className="flex flex-col-reverse gap-3 py-6 pr-4">
+      <dt className="text-xs text-muted-foreground uppercase">{label}</dt>
+      <dd className="rm-bigstat">{value}</dd>
     </div>
   )
 }

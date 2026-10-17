@@ -239,6 +239,90 @@
   }
 }
 
+/*
+ * ============ DEPTH (UI pass) ============
+ * Depth without shadows (Brandboard Block 2 forbids added shadows; Andercore is flat):
+ * texture, a technical grid, a layered red band, oversized numerals and corner brackets.
+ * All CSS — no JS, no extra requests, nothing that affects layout (CLS stays 0).
+ */
+:root {
+  /* Film grain: a 180px SVG noise tile rasterized once and repeated (cheap), not a live
+     full-screen feTurbulence filter like Magic UI's noise-texture (expensive on phones). */
+  --rm-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  --rm-grid-line: rgb(255 255 255 / 0.055);
+}
+
+/* Grain on every dark surface (the cream .surface-light stays clean for long reading) */
+body,
+.surface-shade {
+  background-image: var(--rm-grain);
+  background-size: 180px 180px;
+}
+
+/* Technical grid (rebuilt from Magic UI grid-pattern as CSS): fades out from one corner */
+.rm-grid {
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--rm-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rm-grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 15% 0%, #000 20%, transparent 70%);
+  mask-image: radial-gradient(ellipse 70% 80% at 15% 0%, #000 20%, transparent 70%);
+}
+.rm-grid--right {
+  -webkit-mask-image: radial-gradient(ellipse 60% 90% at 90% 20%, #000 15%, transparent 70%);
+  mask-image: radial-gradient(ellipse 60% 90% at 90% 20%, #000 15%, transparent 70%);
+}
+
+/* Red band with depth: red → red-dark (both brand tokens) + fine diagonal stripes */
+.rm-red-band {
+  background-color: var(--rm-red);
+  background-image:
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 14px),
+    linear-gradient(115deg, var(--rm-red) 0%, var(--rm-red) 35%, var(--rm-red-dark) 100%);
+}
+
+/* Oversized outline numerals (decorative; the list semantics carry the order) */
+.rm-numeral {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--rm-red-light) 75%, transparent);
+}
+
+/* Big stats: Barlow 700 at display size */
+.rm-bigstat {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(4rem, 9vw, 7rem);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+}
+
+/* Signature detail: corner brackets (crop marks) on key panels. Background layers only,
+   so they never change layout and keep the element's own background color. */
+.rm-corners {
+  --corner: var(--rm-red);
+  --cs: 14px;
+  --cw: 2px;
+  background-image:
+    linear-gradient(var(--corner), var(--corner)), linear-gradient(var(--corner), var(--corner)),
+    linear-gradient(var(--corner), var(--corner)), linear-gradient(var(--corner), var(--corner)),
+    linear-gradient(var(--corner), var(--corner)), linear-gradient(var(--corner), var(--corner)),
+    linear-gradient(var(--corner), var(--corner)), linear-gradient(var(--corner), var(--corner));
+  background-repeat: no-repeat;
+  background-size:
+    var(--cs) var(--cw), var(--cw) var(--cs), var(--cs) var(--cw), var(--cw) var(--cs),
+    var(--cs) var(--cw), var(--cw) var(--cs), var(--cs) var(--cw), var(--cw) var(--cs);
+  background-position:
+    top left, top left, top right, top right,
+    bottom left, bottom left, bottom right, bottom right;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

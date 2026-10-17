@@ -23,3 +23,23 @@ export function TechBadge({
     </span>
   )
 }
+
+/** Decorative technical grid behind a section or hero (CSS only, aria-hidden). */
+export function GridBackdrop({
+  side = "left",
+  className,
+}: {
+  side?: "left" | "right"
+  className?: string
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        "rm-grid absolute inset-x-0 top-0 -z-10 h-[460px]",
+        side === "right" && "rm-grid--right",
+        className,
+      )}
+    />
+  )
+}

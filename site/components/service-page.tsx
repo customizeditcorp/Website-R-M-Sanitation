@@ -1,3 +1,4 @@
+import { GridBackdrop } from "@/components/badge"
 import Image from "next/image"
 import { JsonLd } from "@/components/json-ld"
 import {
@@ -51,7 +52,8 @@ export function ServicePage({
 
   return (
     <>
-      <section aria-labelledby="service-title" className="border-b border-border">
+      <section aria-labelledby="service-title" className="relative isolate overflow-hidden border-b border-border">
+        <GridBackdrop />
         <Container className="grid grid-cols-1 gap-12 py-14 md:py-20 lg:grid-cols-[3fr_2fr] lg:items-center">
           <div>
             <Breadcrumbs current={service.name} />
@@ -98,7 +100,7 @@ export function ServicePage({
           <SectionHeading id="why-service" eyebrow={idx()} title={why.title} />
           <ul className="mt-12 grid gap-px border border-border bg-border md:grid-cols-2">
             {why.items.map((item) => (
-              <li key={item} className="flex gap-4 bg-background p-6">
+              <li key={item} className="rm-corners flex gap-4 bg-background p-6">
                 <span aria-hidden="true" className="mt-2 size-2 shrink-0 bg-primary" />
                 <span className="text-body-lg">{item}</span>
               </li>

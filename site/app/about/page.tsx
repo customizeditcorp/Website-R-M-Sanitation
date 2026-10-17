@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { TechBadge } from "@/components/badge"
+import { GridBackdrop, TechBadge } from "@/components/badge"
 import { JsonLd } from "@/components/json-ld"
 import {
   Breadcrumbs,
@@ -28,7 +28,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section aria-labelledby="about-title" className="border-b border-border">
+      <section aria-labelledby="about-title" className="relative isolate overflow-hidden border-b border-border">
+        <GridBackdrop />
         <Container className="grid grid-cols-1 gap-12 py-14 md:py-20 lg:grid-cols-[3fr_2fr] lg:items-end">
           <div>
             <Breadcrumbs current="About" />
